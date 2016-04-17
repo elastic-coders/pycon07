@@ -14,6 +14,13 @@ class Status(models.Model):
     user = models.ForeignKey(User)
     when = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=1024)
+    followers_delivered = models.BooleanField(default=False)
 
     def __str__(self):
         return 'Status {} of user {} at {}'.format(self.pk, self.user, self.when and self.when.isoformat())
+
+
+class FriendStatus(models.Model):
+    user = models.ForeignKey(User)
+    status = models.ForeignKey(Status)
+    author = models.ForeignKey(User, related_name='outgoing_friendstatus_set')

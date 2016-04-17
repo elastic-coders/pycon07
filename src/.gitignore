@@ -31,3 +31,4 @@ data
 /target/
 /wheelhouse*
 /celerybeat-schedule
+*#

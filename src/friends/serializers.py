@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Friendship
+from .models import Friendship, Status
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,6 +28,6 @@ class StatusSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
-        fields = ['id', 'user', 'when', 'text']
+        fields = ['id', 'user', 'when', 'content']
         read_only_fields = ['id', 'when']
-        model = Friendship
+        model = Status

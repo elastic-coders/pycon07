@@ -3,6 +3,7 @@ import json
 from rest_framework.test import APITestCase
 
 from django.contrib.auth.models import User
+from ..models import FriendStatus
 
 
 class FriendshipTest(APITestCase):
@@ -21,3 +22,22 @@ class FriendshipTest(APITestCase):
                                 json.dumps({'user': self.user.pk, 'target': self.user.pk}),
                                 content_type='application/json')
         self.assertEqual(resp.status_code, 201, resp.content)
+
+    def test_post_my_status(self):
+        # make some friends
+        resp = self.client.post('/user/{}/friendship'.format(self.user.pk),
+                                json.dumps({'user': self.user_2.pk, 'target': self.user.pk}),
+                                content_type='application/json')
+        self.assertEqual(resp.status_code, 201, resp.content)
+        # post status
+        resp = self.client.post('/user/{}/status/me'.format(self.user.pk),
+                                json.dumps({'content': 'hey', 'user': self.user.pk}),
+                                content_type='application/json')
+        self.assertEqual(resp.status_code, 201, resp.content)
+        self.assertEqual(1, FriendStatus.objects.filter(user=self.user_2).count())
+
+    def test_see_friends_posts(self):
+        resp = self.client.get('/user/{}/status/all'.format(self.user.pk))
+        self.assertEqual(resp.status_code, 200, resp.content)
+        self.assertEqual(resp.data['results'], [])
+
