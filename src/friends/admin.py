@@ -2,5 +2,5 @@ from django.contrib import admin
 
 from . import models
 
-admin.register(models.Friendship)
-admin.register(models.Status)
+admin.site.register(models.Friendship)
+admin.site.register(models.Status)

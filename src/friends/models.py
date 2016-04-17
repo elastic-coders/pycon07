@@ -7,7 +7,7 @@ class Friendship(models.Model):
     target = models.ForeignKey(User, related_name='incoming_friendship_set')
 
     def __str__(self):
-        return 'Friendship {} user {} to user {}'.format(self.pk, self.source, self.target)
+        return 'Friendship {} user {} to user {}'.format(self.pk, self.user, self.target)
 
 
 class Status(models.Model):
