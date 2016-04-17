@@ -1,4 +1,5 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView
+from rest_framework import permissions
 from django.db import transaction
 
 from . import models
@@ -17,11 +18,13 @@ class PersonalStatusList(ListCreateAPIView):
     queryset = models.Status.objects.all()
     serializer_class = serializers.StatusSerializer
     filter_backends = [filters.ByThisUserFilter]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         with transaction.atomic():
             status = serializer.save()
         tasks.update_followers_status.delay(status.pk)
+        tasks.check_dead_links.delay(status.pk)
         return status
 
 class AllStatusList(ListAPIView):

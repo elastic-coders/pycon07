@@ -4,6 +4,7 @@ from rest_framework.test import APITestCase
 
 from django.contrib.auth.models import User
 from ..models import FriendStatus
+from .. import tasks
 
 
 class FriendshipTest(APITestCase):
@@ -41,3 +42,8 @@ class FriendshipTest(APITestCase):
         self.assertEqual(resp.status_code, 200, resp.content)
         self.assertEqual(resp.data['results'], [])
 
+    def test_dead_link_not_found(self):
+        self.assertFalse(tasks._check_dead_links('ciao https://example.com ciao'))
+
+    def test_dead_link_found(self):
+        self.assertTrue(tasks._check_dead_links('ciao https://exampleeeeeeeeeeeeeeeeee.com ciao'))
