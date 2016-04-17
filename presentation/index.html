@@ -49,10 +49,40 @@
 				</section>
 
 				<section>
-					<h2>Hello There</h2>
-					<p>
-						This is the very beginning.
-					</p>
+                                  <section>
+				    <h2>Today's goals</h2>
+                                    <h3>Phase One: Setup</h3>
+				    <ul>
+				      <li>Get a simplme social-network-like django + DRF app up and running</li>
+                                      <li>Understand its scalalility limitations</li>
+				    </ul>
+                                  </section>
+                                  <section>
+                                    <h3>Phase Two: Celery</h3>
+                                    <ul>
+                                      <li>Setup rabbitmq broker</li>
+                                      <li>Offload some work to a celery task manager</li>
+                                      <li>Fanout on write</li>
+                                      <li>Scaling up workers</li>
+                                      <li>Periodic tasks with celerybeat</li>
+                                    </ul>
+                                  </section>
+                                  <section>
+                                    <h3>Phase Three: Elasticsearch</h3>
+                                    <ul>
+                                      <li>Setup a search endpoint</li>
+                                      <li>Hook up elasticsearch-dsl and elasticsearch index to django models</li>
+                                      <li>Index update script</li>
+                                    </ul>
+                                  </section>
+                                  <section>
+                                    <h3>Phase Four: Async workers</h3>
+                                    <ul>
+                                      <li>Build an asyncio worker that downloads remote urls</li>
+                                      <li>Hook up asynctio worker in the celery worker system</li>
+                                      <li>Integrate the worker to and fro the django app using celery</li>
+                                    </ul>
+                                  </section>
 				</section>
 
 
